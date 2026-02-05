@@ -16,6 +16,7 @@
       color: white;
       text-align: center;
     }
+
     .box {
       background: rgba(255,255,255,0.15);
       padding: 30px;
@@ -25,13 +26,16 @@
       max-width: 500px;
       width: 90%;
     }
+
     h1 {
       margin-bottom: 20px;
       font-size: 28px;
     }
+
     .buttons {
       margin-top: 20px;
     }
+
     button {
       border: none;
       border-radius: 50px;
@@ -42,20 +46,30 @@
       transition: transform 0.2s;
       margin: 10px;
     }
+
     #yes {
       background: #2ecc71;
       color: #0b3d1e;
     }
+
     #no {
       background: #fff;
       color: #e91e63;
     }
+
+    #message {
+      margin-top: 15px;
+      font-size: 18px;
+      min-height: 24px;
+    }
+
     iframe {
       margin-top: 20px;
       width: 100%;
       height: 300px;
       border-radius: 15px;
       display: none;
+      border: none;
     }
   </style>
 </head>
@@ -69,8 +83,9 @@
       <button id="no">Не</button>
     </div>
 
+    <p id="message"></p>
+
     <iframe id="video"
-      src=""
       allow="autoplay; encrypted-media"
       allowfullscreen>
     </iframe>
@@ -81,20 +96,36 @@
     const noBtn = document.getElementById("no");
     const video = document.getElementById("video");
     const buttons = document.getElementById("buttons");
+    const message = document.getElementById("message");
 
     let scale = 1;
+    let clickCount = 0;
+
+    const messages = [
+      "Сериозно ли? 🤨",
+      "Бъзикаш ли се? 😅",
+      "Айде стига бе… 😒",
+      "Това вече не е смешно 😂",
+      "Последен шанс 😭💔",
+      "Добре, печелиш… но натисни „Да“ 😈"
+    ];
 
     noBtn.addEventListener("click", () => {
       scale += 0.3;
       yesBtn.style.transform = `scale(${scale})`;
+
+      message.textContent =
+        messages[Math.min(clickCount, messages.length - 1)];
+
+      clickCount++;
     });
 
     yesBtn.addEventListener("click", () => {
       buttons.style.display = "none";
+      message.textContent = "ЙЕЕЕ! 💖💖💖";
       video.style.display = "block";
-     video.src =
-  "https://www.youtube.com/embed/3rgpKTQddKQ?autoplay=1&mute=1&controls=0";
- 
+      video.src =
+        "https://www.youtube.com/embed/3rgpKTQddKQ?autoplay=1&mute=1&controls=0";
     });
   </script>
 
